@@ -91,7 +91,7 @@ export default function Landing() {
                     src={
                       wishlist.includes(wine.name)
                         ? "/heart-2.png"
-                        : "/heart.png"
+                        : "/heart-1.png"
                     }
                     alt="Heart Icon"
                     width={28} // Adjust width as needed
