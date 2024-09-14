@@ -87,10 +87,10 @@ const Navbar = () => {
             </li>
             <li className="relative group">
               <button
-                onClick={() => handleNavigation("/login")}
+                onClick={() => handleNavigation("/feedback")}
                 className="text-gray-200 flex items-center hover:text-yellow-400"
               >
-                <span className="relative">Login</span>
+                <span className="relative">Feedback</span>
                 <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400 transform scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></span>
               </button>
             </li>

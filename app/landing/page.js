@@ -57,7 +57,7 @@ export default function Landing() {
               every occasion.
             </p>
             <Link
-              href="/login"
+              href="/signup"
               className="bg-[#f1f2f6] text-[#004e89] px-8 py-4 rounded-xl text-lg font-semibold hover:bg-[#e0e2e7] transition-transform transform hover:scale-105 hover:shadow-xl duration-300 ease-in-out"
             >
               Compare
@@ -106,36 +106,7 @@ export default function Landing() {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="w-full py-6 text-center bg-[#03045e] text-white">
-        <div className="max-w-screen-lg mx-auto px-4">
-          <p className="text-sm md:text-base font-light">
-            &copy; {new Date().getFullYear()}{" "}
-            <span className="font-semibold">iSommelier</span>. All rights
-            reserved.
-          </p>
-          <div className="mt-4 flex justify-center gap-6">
-            <Link
-              href="/about"
-              className="text-sm md:text-base hover:underline"
-            >
-              About Us
-            </Link>
-            <Link
-              href="/privacy"
-              className="text-sm md:text-base hover:underline"
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              href="/terms"
-              className="text-sm md:text-base hover:underline"
-            >
-              Terms of Service
-            </Link>
-          </div>
-        </div>
-      </footer>
+      
     </div>
   );
 }

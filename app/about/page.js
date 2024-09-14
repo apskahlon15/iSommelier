@@ -7,7 +7,7 @@ export default function About() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <header className="w-full py-6 bg-[#03045e] text-white text-center">
+      <header className="w-full py-6 text-blue-700 text-center">
         <h1 className="text-4xl font-bold">About Us</h1>
       </header>
 
@@ -31,7 +31,7 @@ export default function About() {
             {/* Team Member 1 */}
             <div className="flex flex-col items-center w-full sm:w-1/2 lg:w-1/4">
               <Image
-                src="/team-member1.jpg" // Replace with your team member image path
+                src="/download.png" // Replace with your team member image path
                 alt="Team Member 1"
                 width={200}
                 height={200}
@@ -43,7 +43,7 @@ export default function About() {
             {/* Team Member 2 */}
             <div className="flex flex-col items-center w-full sm:w-1/2 lg:w-1/4">
               <Image
-                src="/team-member2.jpg" // Replace with your team member image path
+                src="/download.png" // Replace with your team member image path
                 alt="Team Member 2"
                 width={200}
                 height={200}
@@ -94,36 +94,6 @@ export default function About() {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="w-full py-6 bg-[#03045e] text-white text-center">
-        <div className="max-w-screen-lg mx-auto px-4">
-          <p className="text-sm md:text-base font-light">
-            &copy; {new Date().getFullYear()}{" "}
-            <span className="font-semibold">iSommelier</span>. All rights
-            reserved.
-          </p>
-          <div className="mt-4 flex justify-center gap-6">
-            <Link
-              href="/privacy"
-              className="text-sm md:text-base hover:underline"
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              href="/terms"
-              className="text-sm md:text-base hover:underline"
-            >
-              Terms of Service
-            </Link>
-            <Link
-              href="/contact"
-              className="text-sm md:text-base hover:underline"
-            >
-              Contact Us
-            </Link>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
