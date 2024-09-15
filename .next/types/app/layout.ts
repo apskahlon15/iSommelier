@@ -1,4 +1,4 @@
-// File: C:\Users\supre\Downloads\iSommelier\app\layout.js
+// File: C:\Users\chint\Desktop\Isomiller\iSommelier\app\layout.js
 import * as entry from '../../../app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

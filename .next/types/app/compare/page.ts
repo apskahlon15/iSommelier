@@ -1,4 +1,4 @@
-// File: C:\Users\supre\Downloads\iSommelier\app\compare\page.js
+// File: C:\Users\chint\Desktop\Isomiller\iSommelier\app\compare\page.js
 import * as entry from '../../../../app/compare/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

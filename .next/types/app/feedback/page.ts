@@ -1,4 +1,4 @@
-// File: C:\Users\supre\Downloads\iSommelier\app\feedback\page.js
+// File: C:\Users\chint\Desktop\Isomiller\iSommelier\app\feedback\page.js
 import * as entry from '../../../../app/feedback/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
