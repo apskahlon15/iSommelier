@@ -21,10 +21,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/compare/page.js"
     ],
-    "/about/page": [
+    "/wishlist/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/about/page.js"
+      "static/chunks/app/wishlist/page.js"
     ]
   }
 }

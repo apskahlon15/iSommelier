@@ -1,13 +1,32 @@
-// pages/login.js (or src/pages/login.js)
 import React, { useState } from "react";
 
-export default function Login({ onSubmit, onGoogleSignIn, errorMessage }) {
+export default function Signup() {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [serverMessage, setServerMessage] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSubmit(email, password);
+
+    try {
+      const response = await fetch("http://localhost:3000/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, email }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setServerMessage(data.message || "User added successfully!");
+      } else {
+        throw new Error(data.message || "Failed to add user");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setServerMessage("Failed to add user");
+    }
   };
 
   return (
@@ -17,6 +36,17 @@ export default function Login({ onSubmit, onGoogleSignIn, errorMessage }) {
       </h1>
 
       <form onSubmit={handleSubmit} className="mt-8 space-y-4">
+        <div>
+          <label className="text-lg font-medium">Name</label>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full border-2 border-blue-100 rounded-xl p-4 mt-1 bg-transparent"
+            placeholder="Enter your name"
+            required
+          />
+        </div>
         <div>
           <label className="text-lg font-medium">Email</label>
           <input
@@ -28,57 +58,22 @@ export default function Login({ onSubmit, onGoogleSignIn, errorMessage }) {
             required
           />
         </div>
-        <div>
-          <label className="text-lg font-medium">Password</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full border-2 border-blue-100 rounded-xl p-4 mt-1 bg-transparent"
-            placeholder="Enter your password"
-            required
-          />
-        </div>
-        <div className="mt-8 flex justify-between items-center">
-          <div>
-            <input type="checkbox" id="remember" />
-            <label className="ml-2 font-medium text-base" htmlFor="remember">
-              Remember
-            </label>
-          </div>
-          <button className="text-base font-medium text-blue-800 hover:underline transition-all">
-            Forgot password?
-          </button>
-        </div>
         <div className="mt-8 flex flex-col gap-y-4">
           <button
             type="submit"
             className="active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01] ease-in-out py-3 rounded-xl bg-blue-900 text-white text-lg font-bold"
           >
-            Sign in
-          </button>
-          <button
-            type="button"
-            className="flex border-2 border-blue-100 rounded-xl py-3 items-center justify-center gap-2 active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01] ease-in-out"
-            onClick={onGoogleSignIn}
-          >
-            <img
-              className="w-6 h-6"
-              src="https://www.svgrepo.com/show/475656/google-color.svg"
-              loading="lazy"
-              alt="Google logo"
-            />
-            Sign in with Google
+            Sign up
           </button>
         </div>
-        {errorMessage && (
-          <p className="text-red-500 text-sm mt-4">{errorMessage}</p>
+        {serverMessage && (
+          <p className="text-green-500 text-sm mt-4">{serverMessage}</p>
         )}
       </form>
       <div className="mt-8 flex justify-center items-center">
-        <p className="font-medium text-base">Don't have an account?</p>
+        <p className="font-medium text-base">Already have an account?</p>
         <button className="text-blue-800 text-base font-medium ml-2 hover:underline transition-all">
-          Sign up
+          Sign in
         </button>
       </div>
     </div>
