@@ -17,7 +17,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 const db = getDatabase(app);
 
 const SignUp = () => {
@@ -35,10 +34,15 @@ const SignUp = () => {
     const savedEmail = localStorage.getItem("email") || "";
     setName(savedName);
     setEmail(savedEmail);
+
+    // Initialize analytics on client side
+    if (typeof window !== "undefined") {
+      const analytics = getAnalytics(app);
+    }
   }, []);
 
   const handleSignUp = async (e) => {
-    e.preventDefault(); // Prevent the default form submission
+    e.preventDefault();
 
     let isValid = true;
     const newErrors = { name: "", email: "" };
@@ -62,13 +66,11 @@ const SignUp = () => {
 
     if (isValid) {
       try {
-        // Save the user data to the Firebase Realtime Database
         await set(ref(db, "users/" + name), {
           name: name,
           email: email,
         });
 
-        // Save remembered values to local storage
         if (rememberMe) {
           localStorage.setItem("name", name);
           localStorage.setItem("email", email);
@@ -77,13 +79,10 @@ const SignUp = () => {
           localStorage.removeItem("email");
         }
 
-        // Set success message
         setSuccessMessage("Congratulations! You have successfully signed up.");
-
-        // Navigate to /compare after a short delay
         setTimeout(() => {
           router.push("/compare");
-        }, 2000); // 2 seconds delay to show the success message
+        }, 2000);
       } catch (error) {
         console.error("Error writing to database:", error);
         setServerError("An error occurred. Please try again later.");
@@ -100,7 +99,6 @@ const SignUp = () => {
           className="flex flex-col space-y-6"
           onSubmit={handleSignUp}
         >
-          {/* Name Input */}
           <div>
             <label
               htmlFor="name"
@@ -120,7 +118,6 @@ const SignUp = () => {
             )}
           </div>
 
-          {/* Email Input */}
           <div>
             <label
               htmlFor="email"
@@ -140,7 +137,6 @@ const SignUp = () => {
             )}
           </div>
 
-          {/* Remember Me Checkbox */}
           <div className="flex items-center space-x-2">
             <input
               id="rememberMe"
@@ -154,17 +150,13 @@ const SignUp = () => {
             </label>
           </div>
 
-          {/* Server Error Message */}
           {serverError && (
             <p className="text-red-500 text-sm mt-1">{serverError}</p>
           )}
-
-          {/* Success Message */}
           {successMessage && (
             <p className="text-green-500 text-sm mt-1">{successMessage}</p>
           )}
 
-          {/* Submit Button */}
           <button
             type="submit"
             className="bg-blue-500 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-blue-600 transition duration-300 ease-in-out"
