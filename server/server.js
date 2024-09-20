@@ -1,23 +1,26 @@
+// server.js
 const express = require("express");
 const cors = require("cors");
-const { Pool } = require("pg");
-
-// PostgreSQL connection setup
-const pool = new Pool({
-  user: "your_db_user",
-  host: "localhost",
-  database: "your_db_name",
-  password: "your_db_password",
-  port: 5432,
-});
+const pool = require("./db"); // Import the pool from db.js
 
 const app = express();
 
+// Middleware
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000", // Adjust if your frontend is hosted elsewhere
+  })
+);
 
+// POST /signup route
 app.post("/signup", async (req, res) => {
   const { name, email } = req.body;
+
+  // Basic validation
+  if (!name || !email) {
+    return res.status(400).json({ message: "Name and email are required." });
+  }
 
   const insertSTMT = `INSERT INTO user_data (user_name, user_email) VALUES ($1, $2) RETURNING *`;
 
@@ -32,4 +35,8 @@ app.post("/signup", async (req, res) => {
   }
 });
 
-app.listen(3000, () => console.log("Server running on http://localhost:3000"));
+// Start the server on port 5000
+const PORT = 3000;
+app.listen(PORT, () =>
+  console.log(`Server running on http://localhost:${PORT}`)
+);

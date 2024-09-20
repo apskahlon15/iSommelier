@@ -1,12 +1,32 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { initializeApp } from "firebase/app";
+import { getDatabase, ref, set } from "firebase/database";
+import { getAnalytics } from "firebase/analytics";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAluYjiHKvNZp3fpg4J0NZIuME3hy_fsOU",
+  authDomain: "isommelier-407eb.firebaseapp.com",
+  projectId: "isommelier-407eb",
+  storageBucket: "isommelier-407eb.appspot.com",
+  messagingSenderId: "743577851125",
+  appId: "1:743577851125:web:170abc6a978d532c15e1bc",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const db = getDatabase(app);
 
 const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [errors, setErrors] = useState({ name: "", email: "" });
+  const [serverError, setServerError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const router = useRouter();
 
   useEffect(() => {
@@ -17,9 +37,13 @@ const SignUp = () => {
     setEmail(savedEmail);
   }, []);
 
-  const handleSignUp = () => {
+  const handleSignUp = async (e) => {
+    e.preventDefault(); // Prevent the default form submission
+
     let isValid = true;
     const newErrors = { name: "", email: "" };
+    setServerError("");
+    setSuccessMessage("");
 
     // Basic validation
     if (!name) {
@@ -28,6 +52,7 @@ const SignUp = () => {
     }
     if (!email) {
       newErrors.email = "Email is required.";
+      isValid = false;
     } else if (!/\S+@\S+\.\S+/.test(email)) {
       newErrors.email = "Email is invalid.";
       isValid = false;
@@ -36,17 +61,33 @@ const SignUp = () => {
     setErrors(newErrors);
 
     if (isValid) {
-      // Save remembered values to local storage
-      if (rememberMe) {
-        localStorage.setItem("name", name);
-        localStorage.setItem("email", email);
-      } else {
-        localStorage.removeItem("name");
-        localStorage.removeItem("email");
-      }
+      try {
+        // Save the user data to the Firebase Realtime Database
+        await set(ref(db, "users/" + name), {
+          name: name,
+          email: email,
+        });
 
-      // Your sign-up logic here
-      router.push("/compare");
+        // Save remembered values to local storage
+        if (rememberMe) {
+          localStorage.setItem("name", name);
+          localStorage.setItem("email", email);
+        } else {
+          localStorage.removeItem("name");
+          localStorage.removeItem("email");
+        }
+
+        // Set success message
+        setSuccessMessage("Congratulations! You have successfully signed up.");
+
+        // Navigate to /compare after a short delay
+        setTimeout(() => {
+          router.push("/compare");
+        }, 2000); // 2 seconds delay to show the success message
+      } catch (error) {
+        console.error("Error writing to database:", error);
+        setServerError("An error occurred. Please try again later.");
+      }
     }
   };
 
@@ -54,7 +95,11 @@ const SignUp = () => {
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
       <h1 className="text-4xl font-extrabold mb-8 text-cyan-600">Sign Up</h1>
       <div className="bg-white p-10 rounded-lg shadow-lg w-full max-w-md border border-gray-200">
-        <form className="flex flex-col space-y-6">
+        <form
+          id="signUpForm"
+          className="flex flex-col space-y-6"
+          onSubmit={handleSignUp}
+        >
           {/* Name Input */}
           <div>
             <label
@@ -109,10 +154,19 @@ const SignUp = () => {
             </label>
           </div>
 
+          {/* Server Error Message */}
+          {serverError && (
+            <p className="text-red-500 text-sm mt-1">{serverError}</p>
+          )}
+
+          {/* Success Message */}
+          {successMessage && (
+            <p className="text-green-500 text-sm mt-1">{successMessage}</p>
+          )}
+
           {/* Submit Button */}
           <button
-            type="button"
-            onClick={handleSignUp}
+            type="submit"
             className="bg-blue-500 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-blue-600 transition duration-300 ease-in-out"
           >
             Sign Up

@@ -1,7 +1,5 @@
 {
-  "/page": "app/page.js",
   "/signup/page": "app/signup/page.js",
-  "/compare/page": "app/compare/page.js",
-  "/wishlist/page": "app/wishlist/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js"
+  "/page": "app/page.js",
+  "/compare/page": "app/compare/page.js"
 }
