@@ -1,27 +1,29 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Landing() {
-  // State to manage wishlist items
   const [wishlist, setWishlist] = useState([]);
 
-  // Function to handle click event
-  const handleWishlistClick = (wineName) => {
+  useEffect(() => {
+    // Retrieve wishlist from local storage on component mount
+    const storedWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+    setWishlist(storedWishlist);
+  }, []);
+
+  const handleWishlistClick = (wine) => {
     setWishlist((prevWishlist) => {
-      // Check if wine is already in the wishlist
-      if (prevWishlist.includes(wineName)) {
-        // Remove from wishlist
-        return prevWishlist.filter((item) => item !== wineName);
-      } else {
-        // Add to wishlist
-        return [...prevWishlist, wineName];
-      }
+      const updatedWishlist = prevWishlist.includes(wine)
+        ? prevWishlist.filter((item) => item !== wine)
+        : [...prevWishlist, wine];
+
+      // Update local storage
+      localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+      return updatedWishlist;
     });
   };
 
-  // Array of wines
   const wines = [
     {
       src: "/red.webp",
@@ -35,19 +37,16 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Main Content */}
       <main className="relative flex-grow flex flex-col items-center text-center">
         <div className="relative w-full h-[50vh] overflow-hidden mb-12">
-          {/* Wine Image */}
           <Image
-            src="/wines.jpeg" // Replace with your image path
+            src="/wines.jpeg"
             alt="Wine"
-            layout="fill" // Makes the image cover the container
-            objectFit="cover" // Ensures the image covers the container without distortion
-            quality={100} // Set image quality to the highest
-            className="absolute inset-0" // Positions the image absolutely within the container
+            layout="fill"
+            objectFit="cover"
+            quality={100}
+            className="absolute inset-0"
           />
-          {/* Overlay */}
           <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-60 text-white p-6">
             <h2 className="text-4xl font-bold mb-4">
               Discover the Perfect Wine
@@ -65,7 +64,6 @@ export default function Landing() {
           </div>
         </div>
 
-        {/* Images Row */}
         <div className="w-full flex flex-nowrap justify-center gap-8 py-8 px-4 mb-8 overflow-x-auto">
           {wines.map((wine, index) => (
             <div
@@ -77,12 +75,11 @@ export default function Landing() {
                   src={wine.src}
                   alt={wine.alt}
                   layout="intrinsic"
-                  width={280} // Adjust width to make image smaller
-                  height={210} // Adjust height to maintain aspect ratio
+                  width={280}
+                  height={210}
                   objectFit="cover"
                   className="rounded-lg"
                 />
-                {/* Heart Icon */}
                 <div
                   className="absolute top-2 right-2 cursor-pointer"
                   onClick={() => handleWishlistClick(wine.name)}
@@ -94,8 +91,8 @@ export default function Landing() {
                         : "/heart-1.png"
                     }
                     alt="Heart Icon"
-                    width={28} // Adjust width as needed
-                    height={28} // Adjust height as needed
+                    width={28}
+                    height={28}
                     className="transform hover:scale-125 transition-transform duration-200"
                   />
                 </div>
@@ -105,8 +102,6 @@ export default function Landing() {
           ))}
         </div>
       </main>
-
-      
     </div>
   );
 }

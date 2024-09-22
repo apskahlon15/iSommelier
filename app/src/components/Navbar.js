@@ -22,7 +22,10 @@ const Navbar = () => {
 
   const toggleAppearance = () => {
     setIsAppearanceActive((prevState) => !prevState);
-    console.log("Appearance is", isAppearanceActive ? "Deactivated" : "Activated");
+    console.log(
+      "Appearance is",
+      isAppearanceActive ? "Deactivated" : "Activated"
+    );
   };
 
   return (
@@ -101,7 +104,7 @@ const Navbar = () => {
                 <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400 transform scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></span>
               </button>
             </li>
-            
+
             {/* Settings Dropdown */}
             <li className="relative group">
               <div
@@ -146,4 +149,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
