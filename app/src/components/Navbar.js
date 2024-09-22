@@ -6,6 +6,8 @@ import Image from "next/image";
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isAppearanceActive, setIsAppearanceActive] = useState(false);
   const router = useRouter();
 
   const handleSearch = (e) => {
@@ -16,6 +18,11 @@ const Navbar = () => {
 
   const handleNavigation = (path) => {
     router.push(path);
+  };
+
+  const toggleAppearance = () => {
+    setIsAppearanceActive((prevState) => !prevState);
+    console.log("Appearance is", isAppearanceActive ? "Deactivated" : "Activated");
   };
 
   return (
@@ -87,21 +94,49 @@ const Navbar = () => {
             </li>
             <li className="relative group">
               <button
-                onClick={() => handleNavigation("/feedback")}
-                className="text-gray-200 flex items-center hover:text-yellow-400"
-              >
-                <span className="relative">Feedback</span>
-                <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400 transform scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></span>
-              </button>
-            </li>
-            <li className="relative group">
-              <button
                 onClick={() => handleNavigation("/signup")}
                 className="text-gray-200 flex items-center hover:text-yellow-400"
               >
                 <span className="relative">Sign Up</span>
                 <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400 transform scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></span>
               </button>
+            </li>
+            
+            {/* Settings Dropdown */}
+            <li className="relative group">
+              <div
+                className="text-gray-200 flex items-center hover:text-yellow-400 cursor-pointer"
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              >
+                <span className="relative">Settings</span>
+                <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400 transform scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></span>
+              </div>
+
+              {/* Dropdown Menu */}
+              {isDropdownOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg z-10">
+                  <ul className="text-black">
+                    <li className="px-4 py-2 hover:bg-gray-100 flex justify-between items-center">
+                      <span>Appearance</span>
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input
+                          type="checkbox"
+                          className="sr-only peer"
+                          checked={isAppearanceActive}
+                          onChange={toggleAppearance}
+                        />
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer dark:bg-gray-700 peer-checked:bg-blue-600 transition-all"></div>
+                      </label>
+                    </li>
+                    <li
+                      className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                      onClick={() => handleNavigation("/feedback")}
+                    >
+                      Feedback
+                    </li>
+                  </ul>
+                </div>
+              )}
             </li>
           </ul>
         </div>
@@ -111,3 +146,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
