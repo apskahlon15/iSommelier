@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation"; // Import useRouter for navigation
+import { useRouter } from "next/navigation";
 
 const FeedbackPage = () => {
   const [name, setName] = useState("");
@@ -8,22 +8,47 @@ const FeedbackPage = () => {
   const [rating, setRating] = useState("");
   const [comments, setComments] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState(null); // For error handling if needed
 
-  const router = useRouter(); // Initialize the router for navigation
+  const router = useRouter();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true); // Set the submission status to true
+
+    const formData = {
+      access_key: "46e6faf7-2cc8-4549-aebe-13b0a254a462", // Replace with your access key
+      name: name,
+      email: email,
+      rating: rating,
+      comments: comments,
+      botcheck: "", // Honeypot field should be left empty
+    };
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setSubmitted(true); // Show thank you message
+      } else {
+        setError("Something went wrong, please try again.");
+      }
+    } catch (error) {
+      setError("Submission failed. Please check your network and try again.");
+    }
   };
 
   useEffect(() => {
     if (submitted) {
-      // Redirect to home page after 3 seconds
       const timer = setTimeout(() => {
-        router.push("/"); // Redirect to the home page
+        router.push("/"); // Redirect to the home page after 3 seconds
       }, 3000);
-
-      return () => clearTimeout(timer); // Cleanup timer on unmount
+      return () => clearTimeout(timer);
     }
   }, [submitted, router]);
 
@@ -42,7 +67,13 @@ const FeedbackPage = () => {
             >
               We Value Your Feedback
             </h1>
+            {error && <p className="text-red-500 text-center mb-4">{error}</p>}
             <form onSubmit={handleSubmit}>
+              <input
+                type="hidden"
+                name="access_key"
+                value="46e6faf7-2cc8-4549-aebe-13b0a254a462"
+              />
               <div className="mb-4">
                 <label
                   className="block text-gray-700 font-semibold mb-2"

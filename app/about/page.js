@@ -1,9 +1,24 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function About() {
+  // State to handle wishlist notification
+  const [wishlistMessage, setWishlistMessage] = useState("");
+
+  // Function to simulate adding a wine to the wishlist
+  const addToWishlist = (wineName) => {
+    setWishlistMessage(
+      `Your selection "${wineName}" has been added to the wishlist.`
+    );
+
+    // Clear the message after 3 seconds
+    setTimeout(() => {
+      setWishlistMessage("");
+    }, 3000);
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
@@ -13,6 +28,13 @@ export default function About() {
 
       {/* Main Content */}
       <main className="flex-grow px-4 py-8 max-w-screen-lg mx-auto">
+        {/* Wishlist Message */}
+        {wishlistMessage && (
+          <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-6 text-center transition-opacity duration-500 ease-in-out">
+            {wishlistMessage}
+          </div>
+        )}
+
         {/* Mission Statement */}
         <section className="mb-12">
           <h2 className="text-3xl font-semibold mb-4 text-[#03045e]">
@@ -45,7 +67,14 @@ export default function About() {
                 Jane Doe
               </h3>
               <p className="text-sm text-gray-600">Founder & CEO</p>
+              <button
+                onClick={() => addToWishlist("Wine 1")}
+                className="mt-2 bg-blue-700 text-white py-2 px-4 rounded-lg hover:bg-blue-800"
+              >
+                Add Wine to Wishlist
+              </button>
             </div>
+
             {/* Team Member 2 */}
             <div className="flex flex-col items-center w-full sm:w-1/2 lg:w-1/4">
               <Image
@@ -59,8 +88,13 @@ export default function About() {
                 John Smith
               </h3>
               <p className="text-sm text-gray-600">Lead Developer</p>
+              <button
+                onClick={() => addToWishlist("Wine 2")}
+                className="mt-2 bg-blue-700 text-white py-2 px-4 rounded-lg hover:bg-blue-800"
+              >
+                Add Wine to Wishlist
+              </button>
             </div>
-            {/* Add more team members as needed */}
           </div>
         </section>
 
@@ -81,7 +115,7 @@ export default function About() {
           </div>
         </section>
 
-        {/* Additional Information */}
+        {/* Our Story */}
         <section className="mb-12">
           <h2 className="text-3xl font-semibold mb-4 text-[#03045e]">
             Our Story
