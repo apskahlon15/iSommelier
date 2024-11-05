@@ -1,4 +1,3 @@
-
 "use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
@@ -21,7 +20,8 @@ export default function Landing() {
     setWishlist(storedWishlist);
   }, []);
 
-  const handleWishlistClick = (wine) => {
+  const handleWishlistClick = (event, wine) => {
+    event.stopPropagation(); // Prevents the click event from bubbling up to the parent
     setWishlist((prevWishlist) => {
       const wineExists = prevWishlist.some(
         (item) => item.title === wine.title && item.image === wine.image
@@ -107,9 +107,9 @@ export default function Landing() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-4 px-4 mb-6">
           {winesToDisplay.map((wine) => (
             <div
-              key={wine.title} // Use wine.title for the key
+              key={wine.title} 
               className="relative flex flex-col items-center gap-2 border-2 border-gray-300 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 hover:shadow-2xl transition-transform duration-300 ease-in-out"
-              onClick={() => router.push(`/wine/${generateSlug(wine.title)}`)} // Navigate using generated slug
+              onClick={() => router.push(`/wine/${generateSlug(wine.title)}`)} 
             >
               <div className="relative w-full h-56">
                 <Image
@@ -121,7 +121,7 @@ export default function Landing() {
                 />
                 <div
                   className="absolute top-2 right-2 cursor-pointer"
-                  onClick={() => handleWishlistClick(wine)}
+                  onClick={(event) => handleWishlistClick(event, wine)} // Pass event to handleWishlistClick
                 >
                   <Image
                     src={
@@ -179,3 +179,4 @@ export default function Landing() {
     </div>
   );
 }
+
