@@ -1,4 +1,4 @@
-"use client"; // Ensures the component is client-side rendered
+"use client";
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -22,15 +22,15 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="p-4 md:p-6 shadow-lg bg-blue-900">
+    <nav className="fixed top-0 left-0 w-full z-50 shadow-lg bg-blue-900">
       <div className="container mx-auto flex items-center justify-between space-x-6">
         {/* Logo */}
         <div className="flex-shrink-0 transition-transform duration-300 ease-in-out hover:scale-105">
           <Image
             src="/iSomillier-logo.png"
             alt="iSommelier Logo"
-            width={100}
-            height={100}
+            width={80}
+            height={80}
             className="h-auto w-auto"
           />
         </div>
@@ -89,18 +89,7 @@ const Navbar = () => {
               {isDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg z-10">
                   <ul className="text-black">
-                    <li className="px-4 py-2 hover:bg-gray-100 flex justify-between items-center">
-                      <span>Appearance</span>
-                      <label className="relative inline-flex items-center cursor-pointer">
-                        <input
-                          type="checkbox"
-                          className="sr-only peer"
-                          checked={isAppearanceActive}
-                          onChange={toggleAppearance}
-                        />
-                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer dark:bg-gray-700 peer-checked:bg-blue-600 transition-all"></div>
-                      </label>
-                    </li>
+
                     <li
                       className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
                       onClick={() => handleNavigation("/feedback")}

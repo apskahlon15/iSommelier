@@ -1,8 +1,9 @@
 {
+  "/wishlist/page": "app/wishlist/page.js",
+  "/addwines/page": "app/addwines/page.js",
+  "/wine/[title]/page": "app/wine/[title]/page.js",
   "/signup/page": "app/signup/page.js",
-  "/compare/page": "app/compare/page.js",
-  "/page": "app/page.js",
-  "/about/page": "app/about/page.js",
   "/feedback/page": "app/feedback/page.js",
-  "/wishlist/page": "app/wishlist/page.js"
+  "/about/page": "app/about/page.js",
+  "/page": "app/page.js"
 }

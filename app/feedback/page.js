@@ -12,8 +12,25 @@ const FeedbackPage = () => {
 
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {  
     e.preventDefault();
+
+    // Validate name
+    const nameRegex = /^[A-Za-z]{2,}$/; // At least 2 letters, no numbers or symbols
+    if (!nameRegex.test(name)) {
+      setError("Name must be at least 2 letters and contain no numbers or special symbols.");
+      return;
+    }
+
+    // Validate email
+    const emailRegex = /^[a-zA-Z][a-zA-Z0-9._%+-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    // Clear error if validation passes
+    setError(null);
 
     const formData = {
       access_key: "46e6faf7-2cc8-4549-aebe-13b0a254a462", // Replace with your access key
@@ -150,7 +167,6 @@ const FeedbackPage = () => {
                   className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-400"
                   placeholder="Enter your feedback"
                   rows="4"
-                  required
                   style={{ color: "black" }}
                 ></textarea>
               </div>
@@ -170,3 +186,4 @@ const FeedbackPage = () => {
 };
 
 export default FeedbackPage;
+

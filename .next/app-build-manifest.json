@@ -11,6 +11,21 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
+    "/feedback/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/feedback/page.js"
+    ],
+    "/wishlist/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/wishlist/page.js"
+    ],
+    "/about/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/about/page.js"
+    ],
     "/signup/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -21,20 +36,15 @@
       "static/chunks/main-app.js",
       "static/chunks/app/compare/page.js"
     ],
-    "/about/page": [
+    "/addwines/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/about/page.js"
+      "static/chunks/app/addwines/page.js"
     ],
-    "/wishlist/page": [
+    "/wine/[title]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/wishlist/page.js"
-    ],
-    "/feedback/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/feedback/page.js"
+      "static/chunks/app/wine/[title]/page.js"
     ]
   }
 }

@@ -1,6 +1,8 @@
+
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const Wishlist = () => {
   const [wishlistItems, setWishlistItems] = useState([]);
@@ -25,7 +27,7 @@ const Wishlist = () => {
         Welcome to Your Wishlist!
       </h1>
 
-      <div className="max-w-2xl mx-auto px-4">
+      <div className="max-w-6xl mx-auto px-4">
         {wishlistItems.length === 0 ? (
           <div className="flex flex-col items-center">
             <p className="text-center text-lg text-gray-600 animate-bounce">
@@ -33,14 +35,14 @@ const Wishlist = () => {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8">
             {wishlistItems.map((item, index) => (
               <div
                 key={index}
                 className="flex flex-col items-center border rounded-lg shadow-md bg-gray-50 p-4"
               >
                 <Image
-                  src={item.image} // Ensure each item has `image` and `title` properties
+                  src={item.image}
                   alt={item.title}
                   width={200}
                   height={300}
@@ -51,7 +53,7 @@ const Wishlist = () => {
                 </h2>
                 <button
                   onClick={() => handleRemoveClick(item)}
-                  className="mt-2 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-300"
+                  className="bg-red-500 text-white mt-4 px-4 py-2 rounded hover:bg-red-600 transition duration-300 w-full"
                 >
                   Remove
                 </button>
@@ -59,6 +61,13 @@ const Wishlist = () => {
             ))}
           </div>
         )}
+        <Link href="/addwines">
+          <div className="flex items-center justify-center">
+            <button className="bg-[#004e89] text-white my-11 px-6 py-3 rounded-lg text-lg font-semibold hover:bg-[#003765] transition duration-300 ease-in-out">
+              Add Wines
+            </button>
+          </div>
+        </Link>
       </div>
     </div>
   );
