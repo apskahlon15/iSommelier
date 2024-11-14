@@ -1,5 +1,8 @@
 {
+  "/feedback/page": "app/feedback/page.js",
+  "/about/page": "app/about/page.js",
+  "/signup/page": "app/signup/page.js",
   "/page": "app/page.js",
-  "/wishlist/page": "app/wishlist/page.js",
-  "/wine/[title]/page": "app/wine/[title]/page.js"
+  "/wine/[title]/page": "app/wine/[title]/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js"
 }

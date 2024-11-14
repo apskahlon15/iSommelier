@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 const Footer = () => {
   return (
-    <footer className="w-full py-6 text-center bg-[#03045e] text-white">
+    <footer className="w-full py-6 text-center bg-blue-900 text-white">
       <div className="max-w-screen-lg mx-auto px-4">
         <p className="text-sm md:text-base font-light">
           &copy; {new Date().getFullYear()}{" "}

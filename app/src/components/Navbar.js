@@ -5,20 +5,11 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 const Navbar = () => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isAppearanceActive, setIsAppearanceActive] = useState(false);
+  const [] = useState(false);
   const router = useRouter();
 
   const handleNavigation = (path) => {
     router.push(path);
-  };
-
-  const toggleAppearance = () => {
-    setIsAppearanceActive((prevState) => !prevState);
-    console.log(
-      "Appearance is",
-      isAppearanceActive ? "Deactivated" : "Activated"
-    );
   };
 
   return (
@@ -35,7 +26,7 @@ const Navbar = () => {
           />
         </div>
 
-        {/* Navigation Links and Authentication */}
+        {/* Navigation Links */}
         <div className="flex items-center space-x-4 md:space-x-6 lg:space-x-8">
           <ul className="flex space-x-4 md:space-x-6 text-base md:text-lg font-medium">
             <li className="relative group">
@@ -75,30 +66,15 @@ const Navbar = () => {
               </button>
             </li>
 
-            {/* Settings Dropdown */}
+            {/* Feedback */}
             <li className="relative group">
-              <div
-                className="text-gray-100 flex items-center hover:text-yellow-400 cursor-pointer"
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              <button
+                onClick={() => handleNavigation("/feedback")}
+                className="text-gray-100 hover:text-yellow-400"
               >
-                Settings
+                Feedback
                 <span className="absolute bottom-0 left-0 w-full h-1 bg-yellow-400 transform scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></span>
-              </div>
-
-              {/* Dropdown Menu */}
-              {isDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg z-10">
-                  <ul className="text-black">
-
-                    <li
-                      className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                      onClick={() => handleNavigation("/feedback")}
-                    >
-                      Feedback
-                    </li>
-                  </ul>
-                </div>
-              )}
+              </button>
             </li>
           </ul>
         </div>
