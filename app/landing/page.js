@@ -2,20 +2,30 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from 'next/navigation'; 
-import wines from "../data/wines.json"; // Assuming wines data is in JSON format
+import { useRouter } from "next/navigation";
+import prisma from "../../lib/prisma";
 
-const generateSlug = (title) => {
-  return title.toLowerCase().replace(/ /g, "-").replace(/[^\w-]+/g, "");
+const generateSlug = (id) => {
+  return id.toLowerCase().replace(/ /g, "-").replace(/[^\w-]+/g, "");
 };
 
 export default function Landing() {
   const [wishlist, setWishlist] = useState([]);
+  const [wines, setWines] = useState([]); // State to store wine data
   const router = useRouter();
   const [showAllWines, setShowAllWines] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
+    // Fetch wine data from MongoDB when component mounts
+    const fetchWines = async () => {
+      const response = await fetch("/api/wines");
+      const data = await response.json();
+      setWines(data);
+    };
+
+    fetchWines();
+
     const storedWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
     setWishlist(storedWishlist);
   }, []);
@@ -41,7 +51,7 @@ export default function Landing() {
   // Filter wines based on the search query (case-insensitive)
   const filteredWines = searchQuery.length > 0
     ? wines.filter((wine) =>
-        wine.title.toLowerCase().startsWith(searchQuery.toLowerCase()) // Case-insensitive match
+        wine.title.toLowerCase().startsWith(searchQuery.toLowerCase())
       )
     : wines; // Show all wines when searchQuery is empty
 
@@ -66,8 +76,7 @@ export default function Landing() {
           <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-70 text-white p-6">
             <h2 className="text-4xl font-bold mb-4">Discover the Perfect Wine</h2>
             <p className="text-lg mb-6 max-w-md">
-              Explore our curated wine selections and find the best choices for
-              every occasion.
+              Explore our curated wine selections and find the best choices for every occasion.
             </p>
             <Link href="/signup" legacyBehavior>
               <button className="bg-[#f1f2f6] text-[#004e89] px-6 py-3 rounded-lg text-md font-semibold hover:bg-[#e0e2e7] transform hover:scale-105 duration-300">

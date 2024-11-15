@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["liquorpei.com"], // Add the domain here
+    domains: ["liquorpei.com", "www.liquormarts.ca"], // Add the domain here
   },
 };
 
