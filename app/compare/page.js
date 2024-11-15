@@ -1,11 +1,25 @@
 "use client";
-import React, { useState } from "react";
-import wines from "../data/wines.json"; // Adjust the path if necessary
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
 const Compare = () => {
+  const [wines, setWines] = useState([]);
   const [selectedWines, setSelectedWines] = useState([null, null, null]);
   const [searchQueries, setSearchQueries] = useState(["", "", ""]);
+
+  // Fetch wines from the API
+  useEffect(() => {
+    const fetchWines = async () => {
+      try {
+        const response = await fetch('/api/wines');
+        const data = await response.json();
+        setWines(data);
+      } catch (error) {
+        console.error("Error fetching wines:", error);
+      }
+    };
+    fetchWines();
+  }, []);
 
   // Handle search input for each search box
   const handleSearchChange = (index, value) => {

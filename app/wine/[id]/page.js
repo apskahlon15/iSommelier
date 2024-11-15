@@ -1,9 +1,20 @@
-"use client";
 import React from "react";
 import Image from "next/image";
 import prisma from "../../../lib/prisma";
+import { ObjectId } from "mongodb";
 
-export default function WineDetail({ wine }) {
+
+export default async function WineDetail({ params }) {
+  const { id } = params;
+
+  // Fetch wine data using Prisma
+  const wine = await prisma.wine.findUnique({
+    where: {
+      id: id,
+    },
+  });
+
+  // If wine is not found, handle it
   if (!wine) {
     return <p className="text-center text-red-500 font-semibold">Wine not found.</p>;
   }
@@ -18,8 +29,10 @@ export default function WineDetail({ wine }) {
             <Image
               src={wine.image}
               alt={wine.title}
-              width={400}
-              height={400}
+              // width={400}
+              // height={400}
+              layout="fill"
+              objectFit="contain"
               className="rounded-lg shadow-lg"
             />
           </div>
@@ -40,7 +53,9 @@ export default function WineDetail({ wine }) {
 
         {/* Wine Details Section */}
         <div className="px-28 py-10">
-          <h2 className="text-2xl font-semibold text-gray-700 mb-4 border-b border-gray-200 pb-2">Wine Details</h2>
+          <h2 className="text-2xl font-semibold text-gray-700 mb-4 border-b border-gray-200 pb-2">
+            Wine Details
+          </h2>
           <table className="w-full text-left text-gray-800 border-collapse">
             <tbody>
               {[
@@ -65,29 +80,3 @@ export default function WineDetail({ wine }) {
     </div>
   );
 }
-
-// Fetching wine data using Prisma on each request (SSR)
-export async function getServerSideProps({ params }) {
-  const { id } = params;  // Assuming wine's ID is passed in the URL as a parameter
-
-  // Fetch the wine data from Prisma based on the wine ID
-  const wine = await prisma.wine.findUnique({
-    where: {
-      id: Number(id),
-    },
-  });
-
-  // Close Prisma Client after the query is done
-  prisma.$disconnect();
-
-  return {
-    props: {
-      wine: wine || null,  // Pass the fetched wine data or null if not found
-    },
-  };
-}
-
-
-
-
-
