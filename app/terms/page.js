@@ -25,12 +25,12 @@ const TermsOfService = () => {
         <ul className="list-disc pl-6">
           <li>Using the website for any unlawful purpose.</li>
           <li>Attempting to gain unauthorized access to any system or network.</li>
-          <li>Interfering with the operation of the website or other users' access.</li>
+          <li>Interfering with the operation of the website or other users access.</li>
         </ul>
 
         <h2 className="text-2xl font-semibold mt-6">4. Disclaimers and Limitation of Liability</h2>
         <ul className="list-disc pl-6">
-          <li>We provide the website "as is" and do not warrant that it will be error-free or uninterrupted.</li>
+          <li>We provide the website &quot;as is&quot; and do not warrant that it will be error-free or uninterrupted.</li>
           <li>To the extent permitted by law, we disclaim all liability for any damages arising from the use of this website.</li>
         </ul>
 
