@@ -57,16 +57,35 @@ export default function Landing() {
   const [selectedVolume, setSelectedVolume] = useState(null);
   const router = useRouter();
 
+  // useEffect(() => {
+  //   // Fetch wine data from MongoDB when component mounts
+  //   const fetchWines = async () => {
+  //     const response = await fetch("/api/wines");
+  //     const data = await response.json();
+  //     setWines(data);
+  //   };
+
+  //   fetchWines();
+
+  //   const storedWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+  //   setWishlist(storedWishlist);
+  // }, []);
   useEffect(() => {
-    // Fetch wine data from MongoDB when component mounts
     const fetchWines = async () => {
-      const response = await fetch("/api/wines");
-      const data = await response.json();
-      setWines(data);
-    };
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/wines`);
+        const data = await response.json();
+        if (Array.isArray(data)) {
+          setWines(data);
+        } else {
+          console.error("API response is not an array:", data);
+        }
+      } catch (error) {
+        console.error("Error fetching wines:", error);
+      }
+    };   
 
     fetchWines();
-
     const storedWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
     setWishlist(storedWishlist);
   }, []);
@@ -90,6 +109,7 @@ export default function Landing() {
   };
 
 
+  
   // Filter wines based on the search query (case-insensitive)
   const filteredWines = wines.filter((wine) => {
     // Apply search query filter

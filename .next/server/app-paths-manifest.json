@@ -1,6 +1,1 @@
-{
-  "/page": "app/page.js",
-  "/wine/[id]/page": "app/wine/[id]/page.js",
-  "/api/wines/route": "app/api/wines/route.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js"
-}
+{}
