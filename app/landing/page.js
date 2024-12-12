@@ -46,9 +46,19 @@ export default function Landing() {
 
   useEffect(() => {
     const fetchWines = async () => {
-      const response = await fetch("/api/wines");
-      const data = await response.json();
-      setWines(data);
+      try {
+        const response = await fetch("/api/wines");
+        const data = await response.json();
+        if (Array.isArray(data)) {
+          setWines(data);
+        } else {
+          console.error("API response is not an array:", data);
+          setWines([]); // Default to an empty array if the response is invalid
+        }
+      } catch (error) {
+        console.error("Error fetching wines:", error);
+        setWines([]); // Handle error case
+      }
     };
 
     fetchWines();
@@ -75,7 +85,7 @@ export default function Landing() {
     });
   };
 
-  const filteredWines = wines.filter((wine) => {
+  const filteredWines = Array.isArray(wines)? wines.filter((wine) => {
     const matchesSearchQuery =
       wine.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       wine.region.toLowerCase().includes(searchQuery.toLowerCase());
@@ -93,7 +103,7 @@ export default function Landing() {
       : true;
 
     return matchesSearchQuery && matchesType && matchesRegion && matchesVolume;
-  });
+  }): [];
 
   const winesToDisplay = showAllWines ? filteredWines : filteredWines.slice(0, 4);
 
