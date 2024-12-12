@@ -111,6 +111,13 @@ export default function Landing() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const clearFilters = () => {
+    setSelectedType(null);
+    setSelectedRegion(null);
+    setSelectedVolume(null);
+    setSearchQuery("");
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-gray-100">
       <main className="relative flex-grow flex flex-col items-center text-center">
@@ -173,6 +180,14 @@ export default function Landing() {
               onChange={setSelectedVolume}
               placeholder="Select Volume"
             />
+          </div>
+          <div className="w-full sm:flex-1">
+            <button
+              onClick={clearFilters}
+              className="bg-[#1a5a8a] text-white px-6 py-2 rounded-lg hover:bg-[#004e89] transition duration-300"
+            >
+              Clear Filters
+          </button>
           </div>
         </div>
 
