@@ -1,1 +1,8 @@
-{}
+{
+  "/page": "app/page.js",
+  "/wishlist/page": "app/wishlist/page.js",
+  "/feedback/page": "app/feedback/page.js",
+  "/about/page": "app/about/page.js",
+  "/addwines/page": "app/addwines/page.js",
+  "/api/wines/route": "app/api/wines/route.js"
+}

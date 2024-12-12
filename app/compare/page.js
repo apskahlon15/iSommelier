@@ -11,7 +11,8 @@ const Compare = () => {
   useEffect(() => {
     const fetchWines = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/wines`);
+        //const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/wines`);
+        const response = await fetch("/api/wines");
         const data = await response.json();
         setWines(data);
       } catch (error) {
@@ -79,7 +80,7 @@ const Compare = () => {
           </thead>
           <tbody>
             {attributes.map((attr) => (
-              <tr key={attr.label}>
+              <tr key={attr.label} className="border-b">
                 <td className="border border-gray-300 px-4 py-2 font-semibold text-black">
                   {attr.label}
                 </td>
@@ -140,9 +141,9 @@ const Compare = () => {
         Select up to 3 wines to compare
       </h1>
 
-      <div className="flex flex-row justify-center space-x-4 mb-6">
+      <div className="flex flex-wrap justify-center space-x-4 mb-6">
         {[0, 1, 2].map((index) => (
-          <div key={index} className="w-full max-w-lg relative">
+          <div key={index} className="w-full sm:w-1/3 lg:w-1/4 xl:w-1/4 relative">
             <input
               type="text"
               placeholder={`Search for wine ${index + 1}`}

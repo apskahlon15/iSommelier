@@ -12,7 +12,7 @@ const FeedbackPage = () => {
 
   const router = useRouter();
 
-  const handleSubmit = async (e) => {  
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Validate name
@@ -70,7 +70,7 @@ const FeedbackPage = () => {
   }, [submitted, router]);
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4 sm:p-8">
       <div className="bg-white shadow-lg rounded-lg p-8 max-w-lg w-full">
         {submitted ? (
           <h1 className="text-2xl font-bold text-center text-green-500 py-8">
@@ -78,10 +78,7 @@ const FeedbackPage = () => {
           </h1>
         ) : (
           <>
-            <h1
-              className="text-3xl font-bold text-center mb-8"
-              style={{ color: "#03045e" }}
-            >
+            <h1 className="text-3xl font-bold text-center mb-8 text-[#03045e]">
               We Value Your Feedback
             </h1>
             {error && <p className="text-red-500 text-center mb-4">{error}</p>}
@@ -186,4 +183,3 @@ const FeedbackPage = () => {
 };
 
 export default FeedbackPage;
-

@@ -91,9 +91,11 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
-      <h1 className="text-4xl font-extrabold mb-8 text-cyan-600">Sign Up</h1>
-      <div className="bg-white p-10 rounded-lg shadow-lg w-full max-w-md border border-gray-200">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6 sm:p-8 lg:p-12">
+      <h1 className="text-3xl sm:text-4xl font-extrabold mb-8 text-cyan-600 text-center">
+        Sign Up
+      </h1>
+      <div className="bg-white p-8 sm:p-10 rounded-lg shadow-lg w-full max-w-md sm:max-w-lg lg:max-w-xl border border-gray-200">
         <form
           id="signUpForm"
           className="flex flex-col space-y-6"
@@ -102,7 +104,7 @@ const SignUp = () => {
           <div>
             <label
               htmlFor="name"
-              className="block text-lg font-semibold mb-2 text-gray-700"
+              className="block text-lg sm:text-xl font-semibold mb-2 text-gray-700"
             >
               Name
             </label>
@@ -121,7 +123,7 @@ const SignUp = () => {
           <div>
             <label
               htmlFor="email"
-              className="block text-lg font-semibold mb-2 text-gray-700"
+              className="block text-lg sm:text-xl font-semibold mb-2 text-gray-700"
             >
               Email
             </label>
@@ -145,7 +147,7 @@ const SignUp = () => {
               onChange={(e) => setRememberMe(e.target.checked)}
               className="h-5 w-5 text-cyan-500 border-gray-300 rounded focus:ring-cyan-500"
             />
-            <label htmlFor="rememberMe" className="text-gray-700 text-sm">
+            <label htmlFor="rememberMe" className="text-gray-700 text-sm sm:text-base">
               Remember my name and email
             </label>
           </div>
