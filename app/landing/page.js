@@ -22,7 +22,7 @@ const regions = [
   { value: "Quebec", label: "Quebec" },
   { value: "British Columbia", label: "British Columbia" },
   { value: "Nova Scotia", label: "Nova Scotia" },
-  { value: "Alberta", label: "Alberta" },
+  { value: "Prince Edward Island", label: "PEI" },
   { value: "NULL", label: "Other" },
 ];
 
