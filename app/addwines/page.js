@@ -13,7 +13,6 @@ export default function AddToWishlist() {
   useEffect(() => {
     const fetchWines = async () => {
       try {
-        //const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/wines`);
         const response = await fetch("/api/wines");
         const data = await response.json();
         setWines(data);
